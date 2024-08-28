@@ -1,0 +1,23 @@
+.no-padding {
+  padding: 0;
+}
+
+.no-padding-top {
+  padding-top: 0;
+}
+
+.selected {
+  background-color: #ccc;
+}
+
+.wrapper {
+  display: flex;
+  position: fixed;
+  justify-content: space-between;
+  height: 100vh;
+  margin-top: 64px;
+}
+
+.title {
+  font-size: 16px;
+}

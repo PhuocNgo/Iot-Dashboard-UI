@@ -1,13 +1,30 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import GlobalStyles from "./globalStyles";
+import Dashboard from "./components/mainContent/dashboard";
+import Profile from "./components/mainContent/profile/profile";
+import SensorsData from "./components/mainContent/sensorsData";
+import ActionsHistory from "./components/mainContent/actionsHistory";
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <GlobalStyles>
+      <Router>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="profile" element={<Profile />} />
+            <Route path="sensors-data" element={<SensorsData />} />
+            <Route path="history" element={<ActionsHistory />} />
+          </Route>
+        </Routes>
+      </Router>
+    </GlobalStyles>
   </React.StrictMode>
 );
 

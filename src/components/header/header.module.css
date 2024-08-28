@@ -1,0 +1,14 @@
+.css-i4bv87-MuiSvgIcon-root {
+  font-size: 2.5rem;
+}
+
+.css-hvhilf-MuiTypography-root {
+  font-size: 2.5rem;
+}
+
+.fixed {
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  display: flex;
+}
