@@ -38,6 +38,25 @@ export const weatherData = {
   },
 };
 
+const realWeatherData = [];
+
+weatherData.hourly.time.forEach((curVal, index) => {
+  realWeatherData.push({
+    time: curVal.toISOString(),
+    temperature: weatherData.hourly.temperature2m[index],
+    humidity: weatherData.hourly.relativeHumidity2m[index],
+  });
+});
+export default realWeatherData;
+/**
+ * {
+ *   hourly: {
+ *      time: []
+ *      temperature2m: []
+ *      relativeHumidity2m: []
+ *   }
+ * }
+ */
 // `weatherData` now contains a simple structure with arrays for datetime and weather data
 // for (let i = 0; i < weatherData.hourly.time.length; i++) {
 //   console.log(
