@@ -39,7 +39,7 @@ function Profile() {
                 <TableCell sx={{ fontSize: 16 }}>:</TableCell>
 
                 <TableCell sx={{ fontSize: 16 }}>
-                  {index === profileData.length - 1 ? (
+                  {curData.value.includes("https://") ? (
                     <Link href={curData.value} target="_blank" rel="noopener">
                       {curData.value}
                     </Link>

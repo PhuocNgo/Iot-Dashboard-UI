@@ -29,8 +29,10 @@ const series = [
 
 export default function WeatherChart() {
   return (
-    <div style={{ width: "100%" }}>
-      <Typography>Weather Data</Typography>
+    <div style={{ width: "100%", marginTop: "16px" }}>
+      <Typography sx={{ fontSize: "16px", marginBottom: "16px" }}>
+        Weather Data
+      </Typography>
       <div>
         <ResponsiveChartContainer
           series={series}
