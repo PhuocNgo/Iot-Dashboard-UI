@@ -1,6 +1,7 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { AppBar, InputBase, Toolbar } from "@mui/material";
 import { alpha, Box, styled } from "@mui/system";
+import handleOnKeyDown from "./handleOnKeyDown";
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -44,7 +45,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function SearchBar() {
+function SearchBar({ data, setData }) {
   return (
     <Box sx={{ flexGrow: 1 }} fontSize={"16px"}>
       <AppBar position="static" sx={{ borderRadius: "3px" }}>
@@ -57,6 +58,7 @@ function SearchBar() {
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
               sx={{ padding: "2px", fontSize: "16px" }}
+              onKeyDown={(event) => handleOnKeyDown(event, data, setData)}
             />
           </Search>
         </Toolbar>

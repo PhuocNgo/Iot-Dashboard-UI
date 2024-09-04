@@ -10,7 +10,8 @@ import TableRow from "@mui/material/TableRow";
 import { sensorsData } from "./data";
 import { Container } from "@mui/system";
 import { Typography } from "@mui/material";
-import SearchBar from "./search";
+
+import SearchBar from "../component/search";
 
 const columns = [
   { id: "id", label: "ID", minWidth: 170 },
@@ -34,6 +35,7 @@ const rows = sensorsData;
 export default function SensorsData() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(4);
+  const [row, setRows] = React.useState(rows);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -49,7 +51,7 @@ export default function SensorsData() {
       <Typography sx={{ fontSize: "36px", mb: "16px" }}>
         Sensors Data
       </Typography>
-      <SearchBar />
+      <SearchBar data={rows} setData={setRows}/>
       <Paper sx={{ width: "100%", overflow: "hidden", mb: "20px", mt: "16px" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
@@ -68,7 +70,7 @@ export default function SensorsData() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows
+              {row
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                   return (
@@ -104,7 +106,7 @@ export default function SensorsData() {
           }}
           rowsPerPageOptions={[4, 8, 10]}
           component="div"
-          count={rows.length}
+          count={row.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}

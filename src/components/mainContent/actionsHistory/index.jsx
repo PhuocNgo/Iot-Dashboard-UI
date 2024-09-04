@@ -10,9 +10,10 @@ import TableRow from "@mui/material/TableRow";
 import { histroies } from "./data";
 import { Container } from "@mui/system";
 import { Typography } from "@mui/material";
+import SearchBar from "../component/search";
 
 const columns = [
-  { id: "time", label: "Time", minWidth: 170 },
+  {id: "id", label: "ID", minWidth: 170},
   { id: "device", label: "Device Name", minWidth: 100 },
   {
     id: "action",
@@ -20,6 +21,7 @@ const columns = [
     minWidth: 170,
     align: "right",
   },
+  { id: "time", label: "Time", minWidth: 170, align: "right", },
 ];
 
 const rows = histroies;
@@ -27,6 +29,7 @@ const rows = histroies;
 export default function ActionsHistory() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(4);
+  const [row, setRow] = React.useState(rows);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -40,7 +43,8 @@ export default function ActionsHistory() {
   return (
     <Container>
       <Typography sx={{ fontSize: "36px", mb: "16px" }}>History</Typography>
-      <Paper sx={{ width: "100%", overflow: "hidden" }}>
+      <SearchBar data={rows} setData={setRow} />
+      <Paper sx={{ width: "100%", overflow: "hidden", marginTop: "16px" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
@@ -58,7 +62,7 @@ export default function ActionsHistory() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows
+              {row
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row) => {
                   return (
@@ -94,7 +98,7 @@ export default function ActionsHistory() {
           }}
           rowsPerPageOptions={[4, 8, 10]}
           component="div"
-          count={rows.length}
+          count={row.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onPageChange={handleChangePage}
