@@ -1,38 +1,19 @@
-export const histroies = [
-  {
-    id: 0,
-    device: "Cam bien nhiet do",
-    action: "on",
-    time: "1:26 AM",
-  },
-  {
-    id: 1,
-    device: "Cam bien anh sang",
-    action: "off",
-    time: "1:26 AM",
-  },
-  {
-    id: 2,
-    device: "Quat",
-    action: "on",
-    time: "1:26 AM",
-  },
-  {
-    id: 3,
-    device: "Cam bien nhiet do",
-    action: "on",
-    time: "1:26 AM",
-  },
-  {
-    id: 4,
-    device: "Cam bien anh sang",
-    action: "off",
-    time: "1:26 AM",
-  },
-  {
-    id: 5,
-    device: "Quat",
-    action: "on",
-    time: "1:26 AM",
-  },
-];
+const fetchData = async () => {
+  try {
+    const response = await fetch("http://localhost:8080/api/getActionsHistory");
+
+    if (!response.ok) {
+      console.log("Error, can not connect!");
+      return [];
+    }
+
+    const result = await response.json();
+    const history = result.data;
+    return history;
+  } catch (err) {
+    console.log("Cannot get the history:", err.message);
+    return [];
+  }
+};
+
+export const histories = await fetchData();

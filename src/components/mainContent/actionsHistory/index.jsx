@@ -7,24 +7,24 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { histroies } from "./data";
+import { histories } from "./data";
 import { Container } from "@mui/system";
 import { Typography } from "@mui/material";
 import SearchBar from "../component/search";
 
 const columns = [
-  {id: "id", label: "ID", minWidth: 170},
-  { id: "device", label: "Device Name", minWidth: 100 },
+  { id: "_id", label: "ID", minWidth: 170 },
+  { id: "deviceName", label: "Device Name", minWidth: 100 },
   {
     id: "action",
     label: "Action",
     minWidth: 170,
-    align: "right",
+    align: "left",
   },
-  { id: "time", label: "Time", minWidth: 170, align: "right", },
+  { id: "time", label: "Time", minWidth: 170, align: "left" },
 ];
 
-const rows = histroies;
+const rows = histories;
 
 export default function ActionsHistory() {
   const [page, setPage] = React.useState(0);
@@ -41,9 +41,9 @@ export default function ActionsHistory() {
   };
 
   return (
-    <Container>
+    <Container sx={{ mb: "16px" }}>
       <Typography sx={{ fontSize: "36px", mb: "16px" }}>History</Typography>
-      <SearchBar data={rows} setData={setRow} />
+      <SearchBar apiEndpoint={"history"} setData={setRow} />
       <Paper sx={{ width: "100%", overflow: "hidden", marginTop: "16px" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">

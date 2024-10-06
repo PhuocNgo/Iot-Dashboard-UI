@@ -1,7 +1,8 @@
 import SearchIcon from "@mui/icons-material/Search";
-import { AppBar, InputBase, Toolbar } from "@mui/material";
-import { alpha, Box, styled } from "@mui/system";
-import handleOnKeyDown from "./handleOnKeyDown";
+import { AppBar, Button, InputBase, Toolbar, Box } from "@mui/material";
+import { alpha, styled } from "@mui/system";
+import handleSearch from "./handleSearch";
+import { useState } from "react";
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
   padding: theme.spacing(0, 2),
@@ -21,11 +22,9 @@ const Search = styled("div")(({ theme }) => ({
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto",
-  },
+  width: "50%", // Giảm chiều rộng xuống 50%
+  display: "flex",
+  alignItems: "center",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
@@ -33,7 +32,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   width: "100%",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     [theme.breakpoints.up("sm")]: {
@@ -45,22 +43,68 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function SearchBar({ data, setData }) {
+function SearchBar({ apiEndpoint, setData }) {
+  const [searchWord, setSearchWord] = useState("");
+
   return (
-    <Box sx={{ flexGrow: 1 }} fontSize={"16px"}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        width: "50%",
+      }}
+      fontSize={"16px"}
+    >
       <AppBar position="static" sx={{ borderRadius: "3px" }}>
-        <Toolbar>
-          <Search sx={{ flexGrow: 1 }}>
-            <SearchIconWrapper>
-              <SearchIcon sx={{ fontSize: 20 }} />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-              sx={{ padding: "2px", fontSize: "16px" }}
-              onKeyDown={(event) => handleOnKeyDown(event, data, setData)}
-            />
-          </Search>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexGrow: 1,
+            }}
+          >
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon sx={{ fontSize: 20 }} />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+                sx={{ padding: "2px", fontSize: "16px", height: "100%" }}
+                onChange={(event) => {
+                  setSearchWord(event.target.value);
+                }}
+              />
+            </Search>
+            <Button
+              variant="outlined"
+              sx={{
+                marginLeft: 1,
+                height: "100%",
+                width: "20%",
+                fontSize: "16px",
+                color: "#1976d2",
+                backgroundColor: "#fff",
+                "&:hover": {
+                  backgroundColor: "#fff",
+                },
+              }}
+              onClick={() => {
+                if (searchWord.trim() !== "") {
+                  handleSearch(searchWord, apiEndpoint, setData);
+                }
+              }}
+            >
+              Search
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>
