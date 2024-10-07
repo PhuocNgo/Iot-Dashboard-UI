@@ -4,16 +4,16 @@ import {
   WaterDropOutlined,
 } from "@mui/icons-material";
 
-export const deviceSpecifications = [
+export const sensorsData = [
   {
     name: "humidity",
-    data: 30,
+    data: 80,
     icon: <WaterDropOutlined sx={{ fontSize: "40px" }} />,
     unit: "%",
     backgroundColor: "#78d2f5",
   },
   {
-    name: "light",
+    name: "brightness",
     data: 500,
     icon: <LightModeOutlined sx={{ fontSize: "40px" }} />,
     unit: "lux",
@@ -21,11 +21,11 @@ export const deviceSpecifications = [
   },
   {
     name: "temperature",
-    data: 37,
+    data: 30,
     icon: <DeviceThermostatOutlined sx={{ fontSize: "40px" }} />,
     unit: "°C",
     backgroundColor: "#f27935",
   },
 ];
 
-export const length = deviceSpecifications.length;
+export const length = sensorsData.length;

@@ -7,30 +7,36 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { sensorsData } from "./data";
+import dataForSensors from "./data";
 import { Container } from "@mui/system";
 import { Typography } from "@mui/material";
 
 import SearchBar from "../component/search";
 
 const columns = [
-  { id: "id", label: "ID", minWidth: 170 },
+  { id: "_id", label: "ID", minWidth: 170 },
   { id: "temperature", label: "Temperature", minWidth: 100 },
   {
     id: "humidity",
     label: "Humidity",
     minWidth: 170,
-    align: "right",
+    align: "left",
   },
   {
     id: "brightness",
     label: "Brightness",
     minWidth: 170,
-    align: "right",
+    align: "left",
+  },
+  {
+    id: "time",
+    label: "Time",
+    minWidth: 170,
+    align: "left",
   },
 ];
 
-const rows = sensorsData;
+const rows = dataForSensors;
 
 export default function SensorsData() {
   const [page, setPage] = React.useState(0);
@@ -51,7 +57,11 @@ export default function SensorsData() {
       <Typography sx={{ fontSize: "36px", mb: "16px" }}>
         Sensors Data
       </Typography>
-      <SearchBar data={rows} setData={setRows}/>
+      <SearchBar
+        apiEndpoint={"sensorsData"}
+        setData={setRows}
+        name={"sensors_name"}
+      />
       <Paper sx={{ width: "100%", overflow: "hidden", mb: "20px", mt: "16px" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">

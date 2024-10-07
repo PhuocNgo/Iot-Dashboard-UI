@@ -1,11 +1,46 @@
 import { Card, CardContent, Grid, Typography } from "@mui/material";
-import { deviceSpecifications, length } from "./dataForDevices";
+import { sensorsData, length } from "./sensorsData";
 import { Box } from "@mui/system";
+import { useEffect, useState } from "react";
+import fetchSensorsData from "./fetchSensorsData";
+import saveData from "./saveSensorsData";
 
 function Specifications() {
+  const [sensorsValues, setSensorsValues] = useState(sensorsData);
+
+  useEffect(() => {
+    setSensorsValues((prevValues) => {
+      const data = JSON.parse(localStorage.getItem("dataSensors"));
+      return prevValues.map((sensor) => ({
+        ...sensor,
+        data: data[sensor.name],
+      }));
+    });
+
+    const fetchData = async () => {
+      const result = await fetchSensorsData();
+      const data = JSON.parse(result);
+      setSensorsValues((prevValues) => {
+        localStorage.setItem("dataSensors", JSON.stringify(data));
+        return prevValues.map((sensor) => ({
+          ...sensor,
+          data: data[sensor.name],
+        }));
+      });
+    };
+
+    const idFetch = setInterval(fetchData, 2000);
+    const idSave = setInterval(saveData, 60 * 1000);
+
+    return () => {
+      clearInterval(idFetch);
+      clearInterval(idSave);
+    };
+  }, []);
+
   return (
     <Grid container spacing={2}>
-      {deviceSpecifications.map((curVal, index) => (
+      {sensorsValues.map((curVal, index) => (
         <Grid item xs={12 / length} key={index}>
           <Card
             sx={{

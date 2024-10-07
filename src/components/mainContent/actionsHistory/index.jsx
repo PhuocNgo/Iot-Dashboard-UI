@@ -24,12 +24,16 @@ const columns = [
   { id: "time", label: "Time", minWidth: 170, align: "left" },
 ];
 
-const rows = histories;
+const rows = [];
 
 export default function ActionsHistory() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(4);
   const [row, setRow] = React.useState(rows);
+
+  React.useEffect(() => {
+    setRow(histories);
+  }, []);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -43,7 +47,11 @@ export default function ActionsHistory() {
   return (
     <Container sx={{ mb: "16px" }}>
       <Typography sx={{ fontSize: "36px", mb: "16px" }}>History</Typography>
-      <SearchBar apiEndpoint={"history"} setData={setRow} />
+      <SearchBar
+        name={"device_name"}
+        apiEndpoint={"history"}
+        setData={setRow}
+      />
       <Paper sx={{ width: "100%", overflow: "hidden", marginTop: "16px" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">

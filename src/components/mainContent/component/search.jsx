@@ -22,7 +22,7 @@ const Search = styled("div")(({ theme }) => ({
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginLeft: 0,
-  width: "50%", // Giảm chiều rộng xuống 50%
+  width: "50%",
   display: "flex",
   alignItems: "center",
 }));
@@ -43,7 +43,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function SearchBar({ apiEndpoint, setData }) {
+function SearchBar({ apiEndpoint, setData, name }) {
   const [searchWord, setSearchWord] = useState("");
 
   return (
@@ -98,7 +98,7 @@ function SearchBar({ apiEndpoint, setData }) {
               }}
               onClick={() => {
                 if (searchWord.trim() !== "") {
-                  handleSearch(searchWord, apiEndpoint, setData);
+                  handleSearch(searchWord, apiEndpoint, setData, name);
                 }
               }}
             >

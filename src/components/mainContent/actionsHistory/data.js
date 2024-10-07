@@ -16,4 +16,5 @@ const fetchData = async () => {
   }
 };
 
-export const histories = await fetchData();
+const histories = await fetchData();
+export { histories };
