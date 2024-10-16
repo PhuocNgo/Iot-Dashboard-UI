@@ -8,20 +8,20 @@ export const deviceInfo = [
     name: "light",
     icon: <LightIcon sx={{ fontSize: "50px" }} />,
     switchBtn: (
-      <DeviceSwitch apiEndPoint={"changeTheLight"} deviceName={"light"} />
+      <DeviceSwitch apiEndPoint={"light-shift"} deviceName={"light"} />
     ),
   },
   {
     name: "fan",
     icon: <WindPowerIcon sx={{ fontSize: "50px" }} />,
-    switchBtn: <DeviceSwitch apiEndPoint={"changeTheFan"} deviceName={"fan"} />,
+    switchBtn: <DeviceSwitch apiEndPoint={"fan-shift"} deviceName={"fan"} />,
   },
   {
     name: "air condition",
     icon: <AirIcon sx={{ fontSize: "50px" }} />,
     switchBtn: (
       <DeviceSwitch
-        apiEndPoint={"changeTheAirConditioner"}
+        apiEndPoint={"air-conditioner-shift"}
         deviceName={"air conditioner"}
       />
     ),

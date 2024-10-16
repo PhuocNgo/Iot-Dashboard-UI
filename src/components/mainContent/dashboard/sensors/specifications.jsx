@@ -19,7 +19,7 @@ function Specifications() {
 
     const fetchData = async () => {
       const result = await fetchSensorsData();
-      const data = JSON.parse(result);
+      const data = result;
       setSensorsValues((prevValues) => {
         localStorage.setItem("dataSensors", JSON.stringify(data));
         return prevValues.map((sensor) => ({
