@@ -1,7 +1,7 @@
 import { Grid, Typography } from "@mui/material";
 import { Container } from "@mui/system";
 import Specifications from "./sensors/specifications";
-import WeatherChart from "./chart/chart1";
+import Chart from "./chart/chart";
 import DeviceControl from "./devices/deviceControl";
 
 function Dashboard() {
@@ -11,7 +11,7 @@ function Dashboard() {
       <Specifications />
       <Grid container spacing={2}>
         <Grid item xs={8}>
-          <WeatherChart />
+          <Chart />
         </Grid>
         <Grid item xs={4}>
           <DeviceControl />

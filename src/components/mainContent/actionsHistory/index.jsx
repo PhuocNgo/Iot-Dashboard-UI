@@ -7,7 +7,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import { histories } from "./data";
+import fetchData from "./data";
 import { Container } from "@mui/system";
 import { Typography } from "@mui/material";
 import SearchBar from "../component/search";
@@ -27,12 +27,19 @@ const columns = [
 const rows = [];
 
 export default function ActionsHistory() {
-  const [page, setPage] = React.useState(0);
+  const [page, setPage] = React.useState(1);
   const [rowsPerPage, setRowsPerPage] = React.useState(4);
   const [row, setRow] = React.useState(rows);
 
   React.useEffect(() => {
-    setRow(histories);
+    const fetch = async () => {
+      let histories = [];
+      histories = await fetchData(page, rowsPerPage);
+      console.log(histories);
+      setRow(histories);
+    };
+
+    fetch();
   }, []);
 
   const handleChangePage = (event, newPage) => {

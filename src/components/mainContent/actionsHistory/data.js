@@ -1,6 +1,8 @@
-const fetchData = async () => {
+const fetchData = async (page, pageSize) => {
   try {
-    const response = await fetch("http://localhost:8080/api/getActionsHistory");
+    const response = await fetch(
+      `http://localhost:8080/api/getActionsHistory?page=${page}&page_size=${pageSize}`
+    );
 
     if (!response.ok) {
       console.log("Error, can not connect!");
@@ -16,5 +18,4 @@ const fetchData = async () => {
   }
 };
 
-const histories = await fetchData();
-export { histories };
+export default fetchData;
