@@ -8,21 +8,32 @@ export const deviceInfo = [
     name: "light",
     icon: <LightIcon sx={{ fontSize: "50px" }} />,
     switchBtn: (
-      <DeviceSwitch apiEndPoint={"light-shift"} deviceName={"light"} />
+      <DeviceSwitch
+        deviceName={"light"}
+        topicSub={"light_sub"}
+        topicPub={"light_pub"}
+      />
     ),
   },
   {
     name: "fan",
     icon: <WindPowerIcon sx={{ fontSize: "50px" }} />,
-    switchBtn: <DeviceSwitch apiEndPoint={"fan-shift"} deviceName={"fan"} />,
+    switchBtn: (
+      <DeviceSwitch
+        deviceName={"fan"}
+        topicSub={"fan_sub"}
+        topicPub={"fan_pub"}
+      />
+    ),
   },
   {
     name: "air condition",
     icon: <AirIcon sx={{ fontSize: "50px" }} />,
     switchBtn: (
       <DeviceSwitch
-        apiEndPoint={"air-conditioner-shift"}
         deviceName={"air conditioner"}
+        topicSub={"air_conditioner_sub"}
+        topicPub={"air_conditioner_pub"}
       />
     ),
   },

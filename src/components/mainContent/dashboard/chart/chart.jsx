@@ -19,7 +19,9 @@ const Chart = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/sensor-data");
+      const response = await axios.get(
+        "http://localhost:8080/api/v1/sensor-data"
+      );
 
       const { temperature, humidity, brightness } = response.data.data;
 

@@ -14,7 +14,7 @@ import { Typography } from "@mui/material";
 import SearchBar from "../component/search";
 
 const columns = [
-  { id: "_id", label: "ID", minWidth: 170 },
+  { id: "_id", label: "No.", minWidth: 170 },
   { id: "temperature", label: "Temperature", minWidth: 100 },
   {
     id: "humidity",

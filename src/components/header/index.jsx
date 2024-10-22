@@ -1,4 +1,4 @@
-import HeaderBar from "./search";
+import HeaderBar from "./HeaderBar";
 import styles from "./header.module.css";
 
 function Header() {
