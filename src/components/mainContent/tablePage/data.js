@@ -1,18 +1,31 @@
 const fetchData = async (
+  collectionName,
   page,
   pageSize,
-  sortField = "time",
-  sortDirection = "asc"
+  sortField,
+  sortDirection,
+  searchValue,
+  speciType
 ) => {
   try {
+    const query = {};
+
+    if (searchValue) {
+      query.search_value = searchValue;
+    }
+
+    if (speciType) {
+      query.speci_type = speciType;
+    }
+
     const response = await fetch(
-      `http://localhost:8080/api/v1/results/action_histories?page=${page}&page_size=${pageSize}&sort_field=${sortField}&sort_direction=${sortDirection}`,
+      `http://localhost:8080/api/v1/results/${collectionName}?page=${page}&page_size=${pageSize}&sort_field=${sortField}&sort_direction=${sortDirection}`,
       {
         method: "POST",
         headers: {
           "Content-type": "application/json",
         },
-        body: JSON.stringify({}),
+        body: JSON.stringify(query),
       }
     );
 

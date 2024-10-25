@@ -28,7 +28,7 @@ function Specifications() {
         }));
       });
     };
-
+    fetchData();
     const idFetch = setInterval(fetchData, 2000);
     const idSave = setInterval(saveData, 5 * 60 * 1000);
 

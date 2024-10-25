@@ -1,7 +1,7 @@
 export const sideBarElementInfor = [
   {
     name: "Dashboard",
-    path: "/dashboard",
+    path: "/",
   },
   {
     name: "Sensors Data",

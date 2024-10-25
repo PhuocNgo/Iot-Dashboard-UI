@@ -1,7 +1,6 @@
 import SearchIcon from "@mui/icons-material/Search";
 import { AppBar, Button, InputBase, Toolbar, Box } from "@mui/material";
 import { alpha, styled } from "@mui/system";
-import handleSearch from "./handleSearch";
 import { useState } from "react";
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -43,8 +42,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function SearchBar({ apiEndpoint, setData, name }) {
+function SearchBar({ setSearchValue, setPage }) {
   const [searchWord, setSearchWord] = useState("");
+
+  const handleSearch = (searchWord) => {
+    setSearchValue(searchWord);
+    setPage(0);
+  };
 
   return (
     <Box
@@ -98,7 +102,7 @@ function SearchBar({ apiEndpoint, setData, name }) {
               }}
               onClick={() => {
                 if (searchWord.trim() !== "") {
-                  handleSearch(searchWord, apiEndpoint, setData, name);
+                  handleSearch(searchWord);
                 }
               }}
             >

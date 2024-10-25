@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -10,38 +10,46 @@ import TableRow from "@mui/material/TableRow";
 import fetchData from "./data";
 import { Container } from "@mui/system";
 import { Typography } from "@mui/material";
-import SearchBar from "../component/search";
+import SearchBar from "../component/search/search";
+import SelectOptions from "../component/select options/selectOptions";
 
-const columns = [
-  { id: "_id", label: "No.", minWidth: 170 },
-  { id: "device_name", label: "Device Name", minWidth: 100 },
-  {
-    id: "action",
-    label: "Action",
-    minWidth: 170,
-    align: "left",
-  },
-  { id: "time", label: "Time", minWidth: 170, align: "left" },
-];
+export default function TablePage({ collectionName, columns }) {
+  const rows = [];
 
-const rows = [];
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(4);
+  const [row, setRow] = useState(rows);
+  const [totalCount, setTotalCount] = useState(0);
+  const [sortField, setSortField] = useState("time");
+  const [sortDirection, setSortDirection] = useState("asc");
+  const [searchValue, setSearchValue] = useState("");
+  const [speciType, setSpeciType] = useState("");
 
-export default function ActionsHistory() {
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(4);
-  const [row, setRow] = React.useState(rows);
-  const [totalCount, setTotalCount] = React.useState(0);
-
-  React.useEffect(() => {
+  useEffect(() => {
     const fetch = async () => {
-      const response = await fetchData(page + 1, rowsPerPage);
-      console.log(response);
+      const response = await fetchData(
+        collectionName,
+        page + 1,
+        rowsPerPage,
+        sortField,
+        sortDirection,
+        searchValue,
+        speciType
+      );
       setRow(response.data);
       setTotalCount(response.totalCount);
     };
 
     fetch();
-  }, [page, rowsPerPage]);
+  }, [
+    page,
+    rowsPerPage,
+    sortField,
+    sortDirection,
+    searchValue,
+    speciType,
+    collectionName,
+  ]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -54,12 +62,34 @@ export default function ActionsHistory() {
 
   return (
     <Container sx={{ mb: "16px" }}>
-      <Typography sx={{ fontSize: "36px", mb: "16px" }}>History</Typography>
-      <SearchBar
-        name={"device_name"}
-        apiEndpoint={"history"}
-        setData={setRow}
-      />
+      <Typography sx={{ fontSize: "36px", mb: "16px" }}>
+        {collectionName}
+      </Typography>
+
+      <SearchBar setSearchValue={setSearchValue} setPage={setPage} />
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          width: "50%",
+        }}
+      >
+        <SelectOptions
+          label={"Search With"}
+          menuItems={[{ fieldItem: "time" }, { fieldItem: "date" }]}
+          handleChangeItem={setSpeciType}
+        />
+
+        <SelectOptions label={"Sort Field"} handleChangeItem={setSortField} />
+
+        <SelectOptions
+          label={"Sort Direction"}
+          menuItems={[{ fieldItem: "asc" }, { fieldItem: "desc" }]}
+          handleChangeItem={setSortDirection}
+        />
+      </div>
+
       <Paper sx={{ width: "100%", overflow: "hidden", marginTop: "16px" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table stickyHeader aria-label="sticky table">
@@ -78,7 +108,6 @@ export default function ActionsHistory() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {console.log("row::", row)}
               {row.length > 0 ? (
                 row
                   .slice(0 * rowsPerPage, 0 * rowsPerPage + rowsPerPage)
@@ -107,7 +136,11 @@ export default function ActionsHistory() {
                   })
               ) : (
                 <TableRow>
-                  <TableCell colSpan={columns.length} align="center">
+                  <TableCell
+                    sx={{ fontSize: "16px" }}
+                    colSpan={columns.length}
+                    align="center"
+                  >
                     No data available
                   </TableCell>
                 </TableRow>
