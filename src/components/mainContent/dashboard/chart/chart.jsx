@@ -13,6 +13,7 @@ import {
 } from "recharts";
 import { Container, Typography } from "@mui/material";
 import { addData, selectChartData } from "../../../../slices/chartSlice";
+
 const Chart = () => {
   const dispatch = useDispatch();
   const data = useSelector(selectChartData); // Lấy dữ liệu từ Redux

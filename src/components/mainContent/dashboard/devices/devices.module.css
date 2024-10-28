@@ -1,0 +1,49 @@
+.spin {
+  animation: spin 0.3s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(360deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.fan-transition {
+  animation: spin 3s linear forwards;
+}
+
+/* Thêm CSS vào tệp CSS của bạn */
+@keyframes air-conditioner-effect {
+  0% {
+    background-position: 0% 50%;
+    transform: scale(1);
+    /* Không thay đổi kích thước ban đầu */
+  }
+
+  50% {
+    transform: scale(1.1);
+    /* Phóng to một chút ở giữa */
+  }
+
+  100% {
+    background-position: 100% 50%;
+    transform: scale(1);
+    /* Quay về kích thước ban đầu */
+  }
+}
+
+.air-conditioner {
+  font-size: 50px;
+  background: linear-gradient(90deg, #1976d2, #00bcd4);
+  background-size: 200% 100%;
+  color: white;
+  /* Màu chữ trắng */
+  animation: air-conditioner-effect 1.5s linear infinite;
+  /* Chạy nhanh hơn */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

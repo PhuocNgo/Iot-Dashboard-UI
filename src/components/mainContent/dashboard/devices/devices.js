@@ -1,42 +1,42 @@
-import LightIcon from "@mui/icons-material/Light";
-import WindPowerIcon from "@mui/icons-material/WindPower";
-import AirIcon from "@mui/icons-material/Air";
+// devices.js
 import { DeviceSwitch } from "./switch";
+import styles from "./devices.module.css";
 
 export const deviceInfo = [
   {
     name: "light",
-    icon: <LightIcon sx={{ fontSize: "50px" }} />,
-    switchBtn: (
-      <DeviceSwitch
-        deviceName={"light"}
-        topicSub={"light_sub"}
-        topicPub={"light_pub"}
-      />
+    icon: (isOn) => (
+      <i
+        className="fa-regular fa-lightbulb"
+        style={{ fontSize: "50px", color: isOn ? "red" : "black" }}
+      ></i>
     ),
+    switchBtn: <DeviceSwitch deviceName={"light"} />,
   },
   {
     name: "fan",
-    icon: <WindPowerIcon sx={{ fontSize: "50px" }} />,
-    switchBtn: (
-      <DeviceSwitch
-        deviceName={"fan"}
-        topicSub={"fan_sub"}
-        topicPub={"fan_pub"}
-      />
+    icon: (isOn) => (
+      <i
+        className={`fa-solid fa-fan ${
+          isOn ? styles.spin : styles["fan-transition"]
+        }`}
+        style={{
+          fontSize: "50px",
+          color: isOn ? "greenyellow" : "black",
+          transition: "color 1s ease",
+        }}
+      ></i>
     ),
+    switchBtn: <DeviceSwitch deviceName={"fan"} />,
   },
   {
-    name: "air condition",
-    icon: <AirIcon sx={{ fontSize: "50px" }} />,
-    switchBtn: (
-      <DeviceSwitch
-        deviceName={"air conditioner"}
-        topicSub={"air_conditioner_sub"}
-        topicPub={"air_conditioner_pub"}
-      />
+    name: "air conditioner",
+    icon: (isOn) => (
+      <i
+        className={`fa-solid fa-wind ${isOn ? styles["air-conditioner"] : ""}`}
+        style={{ fontSize: "50px", color: isOn ? "transparent" : "black" }}
+      ></i>
     ),
+    switchBtn: <DeviceSwitch deviceName={"air_conditioner"} />,
   },
 ];
-
-export const lenghtOfDevicesInfo = deviceInfo.length;

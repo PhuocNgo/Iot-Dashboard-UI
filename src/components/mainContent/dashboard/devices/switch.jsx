@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react";
 import Switch from "@mui/material/Switch";
+import { useDispatch, useSelector } from "react-redux";
+import { setDeviceState } from "../../../../slices/devicesSlice";
 
-const toggleDevice = async (state, setIsOn, deviceName, topicSub, topicPub) => {
+const toggleDevice = async (state, deviceName) => {
   const message = state ? "on" : "off";
 
   try {
     const response = await fetch(
-      `http://localhost:8080/api/v1/device-status-shift?topic_sub=${topicSub}&topic_pub=${topicPub}`,
+      `http://localhost:8080/api/v1/device-status-shift?topic_sub=${deviceName}_sub&topic_pub=${deviceName}_pub`,
       {
         method: "POST",
         headers: {
@@ -22,13 +23,6 @@ const toggleDevice = async (state, setIsOn, deviceName, topicSub, topicPub) => {
     }
 
     const data = await response.json();
-
-    if (data.message === "on" || data.message === "off") {
-      setIsOn(state);
-      localStorage.setItem(deviceName, String(state));
-      return data.message;
-    }
-
     return data.message;
   } catch (error) {
     console.error("Error:", error.message);
@@ -36,17 +30,15 @@ const toggleDevice = async (state, setIsOn, deviceName, topicSub, topicPub) => {
   }
 };
 
-const handleChange = async (event, setIsOn, deviceName, topicSub, topicPub) => {
+const handleChange = async (event, deviceName, dispatch) => {
   const newState = event.target.checked;
-  const actionMsg = await toggleDevice(
-    newState,
-    setIsOn,
-    deviceName,
-    topicSub,
-    topicPub
-  );
-  console.log("action message::", actionMsg);
+  const actionMsg = await toggleDevice(newState, deviceName);
+
   if (actionMsg === "on" || actionMsg === "off") {
+    dispatch(setDeviceState({ deviceName, isOn: newState }));
+    if (deviceName.includes("_")) {
+      deviceName = deviceName.split("_")[0] + " " + deviceName.split("_")[1];
+    }
     fetch("http://localhost:8080/api/v1/data/action_histories", {
       method: "POST",
       headers: {
@@ -65,24 +57,15 @@ const handleChange = async (event, setIsOn, deviceName, topicSub, topicPub) => {
   }
 };
 
-export const DeviceSwitch = ({ topicSub, topicPub, deviceName }) => {
-  const [isOn, setIsOn] = useState(false);
-
-  if (!localStorage.getItem(deviceName)) {
-    localStorage.setItem(deviceName, String(isOn));
-  }
-  console.log(localStorage.getItem(deviceName));
-
-  useEffect(() => {
-    const status = localStorage.getItem(deviceName) === "true" ? true : false;
-    toggleDevice(status, setIsOn, deviceName, topicSub, topicPub);
-  }, []);
+export const DeviceSwitch = ({ deviceName }) => {
+  const dispatch = useDispatch();
+  const isOn = useSelector((state) => state.devices.devices[deviceName]);
 
   return (
     <Switch
       checked={isOn}
       onChange={(event) => {
-        handleChange(event, setIsOn, deviceName, topicSub, topicPub);
+        handleChange(event, deviceName, dispatch);
       }}
       color="primary"
       inputProps={{ "aria-label": "controlled" }}
