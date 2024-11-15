@@ -15,4 +15,8 @@ export const sideBarElementInfor = [
     name: "Profile",
     path: "/profile",
   },
+  {
+    name: "New Dashboard",
+    path: "/new-dashboard",
+  },
 ];

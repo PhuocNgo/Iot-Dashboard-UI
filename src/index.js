@@ -12,6 +12,7 @@ import Profile from "./components/mainContent/profile/profile";
 import { actionColumns, sensorsDataColumns } from "./columns";
 import TablePage from "./components/mainContent/tablePage";
 import TablePageNew from "./components/mainContent/tablePage/indexNew";
+import NewDashboard from "./components/mainContent/dashboard copy";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -43,6 +44,7 @@ root.render(
                   />
                 }
               />
+              <Route path="new-dashboard" element={<NewDashboard />} />
             </Route>
           </Routes>
         </Router>
